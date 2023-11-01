@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block  body %}
+<form action="#" method="post">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% if 'error' == messages[0][0] %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> {{ messages[0][1] }}
+            </div>
+        {% else %}
+            <div class="alert alert-success" role="alert">
+                <strong>Success!</strong> {{ messages[0][1] }}
+            </div>
+        {% endif %}
+    {% endif %}
+    {% endwith %}
+    <h1>Hello {{username}}</h1>
+    <h4>Send To:</h4>
+    <h4><input type="text" name="send_to" /></h4>
+    <h4>Amount:</h4>
+    <h4><input type="text" name="send_amount" /></h4>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+{% endblock  %}

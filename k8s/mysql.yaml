@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-mysql
+spec:
+  selector:
+    matchLabels:
+      app: database-mysql
+  template:
+    metadata:
+      labels:
+        app: database-mysql
+    spec:
+      containers:
+      - name: database-mysql
+        image: mohamd556/db_mysql
+        resources: {}
+        ports:
+        - containerPort: 3306
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-mysql
+spec:
+  selector:
+    app: database-mysql
+  ports:
+  - port: 3306
+    targetPort: 3306

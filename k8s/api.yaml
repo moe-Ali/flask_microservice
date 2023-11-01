@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: money-api
+spec:
+  selector:
+    matchLabels:
+      app: money-api
+  template:
+    metadata:
+      labels:
+        app: money-api
+    spec:
+      containers:
+      - name: money-api
+        image: mohamd556/money_app_api
+        resources: {}
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PYTHON_USERNAME
+          value: root
+        - name: PYTHON_PASSWORD
+          value: "your-root-password"
+        - name: PYTHON_HOST
+          value: "database-mysql"
+        - name: PYTHON_PORT
+          value: "3306"
+        - name: PYTHON_DATABASE_NAME
+          value: "flask"
+        - name: PYTHON_TABLE_NAME
+          value: "users"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: money-api
+spec:
+  type: NodePort
+  selector:
+    app: money-api
+  ports:
+  - port: 5000
+    targetPort: 5000
+
